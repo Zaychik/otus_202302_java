@@ -10,7 +10,7 @@ public class CustomerReverseOrder {
     private LinkedList<Customer> l;
 
     public CustomerReverseOrder(){
-        l = new LinkedList<Customer>();
+        l = new LinkedList();
     }
     public void add(Customer customer) {
         l.add(customer);

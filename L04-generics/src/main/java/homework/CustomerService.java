@@ -1,6 +1,7 @@
 package homework;
 
 
+import java.util.AbstractMap;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -18,15 +19,17 @@ public class CustomerService {
 
     public Map.Entry<Customer, String> getSmallest() {
         //Возможно, чтобы реализовать этот метод, потребуется посмотреть как Map.Entry сделан в jdk
-        return cs.firstEntry(); // это "заглушка, чтобы скомилировать"
+        Map.Entry<Customer, String> entry = cs.firstEntry();
+        return entry == null ? null:  new AbstractMap.SimpleEntry(new Customer(entry.getKey().getId(), entry.getKey().getName(), entry.getKey().getScores()), entry.getValue());
     }
 
     public Map.Entry<Customer, String> getNext(Customer customer) {
-        return cs.higherEntry(customer);
+        Map.Entry<Customer, String> entry = cs.higherEntry(customer);
+        return entry == null ? null:  new AbstractMap.SimpleEntry(new Customer(entry.getKey().getId(), entry.getKey().getName(), entry.getKey().getScores()), entry.getValue());
     }
 
     public void add(Customer customer, String data) {
-        //cs.put(new Customer(customer.getId(), customer.getName(), customer.getScores()), data);
-        cs.put(customer, data);
+        cs.put(new Customer(customer.getId(), customer.getName(), customer.getScores()), data);
+        //cs.put(customer, data);
     }
 }

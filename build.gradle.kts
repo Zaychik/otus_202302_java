@@ -33,6 +33,7 @@ allprojects {
     val guava: String by project
     val jmh: String by project
     val asm: String by project
+    val glassfishJson: String by project
 
     apply(plugin = "io.spring.dependency-management")
     dependencyManagement {
@@ -46,6 +47,7 @@ allprojects {
             dependency("org.openjdk.jmh:jmh-core:$jmh")
             dependency("org.openjdk.jmh:jmh-generator-annprocess:$jmh")
             dependency("org.ow2.asm:asm-commons:$asm")
+            dependency("org.glassfish:jakarta.json:${glassfishJson}")
         }
     }
     configurations.all {
@@ -73,7 +75,7 @@ subprojects {
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.compilerArgs.addAll(listOf("-Xlint:all,-serial,-processing"))
+        options.compilerArgs.addAll(listOf("-Xlint:all,-serial,-processing", "-Werror"))
     }
 
     plugins.apply(fr.brouillard.oss.gradle.plugins.JGitverPlugin::class.java)
@@ -82,8 +84,8 @@ subprojects {
         nonQualifierBranches("main,master")
         tagVersionPattern("\${v}\${<meta.DIRTY_TEXT}")
         versionPattern(
-            "\${v}\${<meta.COMMIT_DISTANCE}\${<meta.GIT_SHA1_8}" +
-                    "\${<meta.QUALIFIED_BRANCH_NAME}\${<meta.DIRTY_TEXT}-SNAPSHOT"
+                "\${v}\${<meta.COMMIT_DISTANCE}\${<meta.GIT_SHA1_8}" +
+                        "\${<meta.QUALIFIED_BRANCH_NAME}\${<meta.DIRTY_TEXT}-SNAPSHOT"
         )
     }
 
@@ -107,10 +109,10 @@ tasks {
     val managedVersions by registering {
         doLast {
             project.extensions.getByType<DependencyManagementExtension>()
-                .managedVersions
-                .toSortedMap()
-                .map { "${it.key}:${it.value}" }
-                .forEach(::println)
+                    .managedVersions
+                    .toSortedMap()
+                    .map { "${it.key}:${it.value}" }
+                    .forEach(::println)
         }
     }
 }

@@ -21,8 +21,18 @@ include("L13-creationalPatterns")
 include("L14-behavioralPatterns")
 include("L15-structuralPatterns:demo")
 include("L15-structuralPatterns:homework")
+
 include("L16-io:demo")
 include("L16-io:homework")
+
+include("L17-nio-logging")
+
+include("L18-rdbms")
+
+include("L19-jdbc:demo")
+include("L19-jdbc:homework")
+
+include ("L20-hibernate")
 
 pluginManagement {
     val jgitver: String by settings
@@ -31,7 +41,6 @@ pluginManagement {
     val johnrengelmanShadow: String by settings
     val jib: String by settings
     val protobufVer: String by settings
-
 
     plugins {
         id("fr.brouillard.oss.gradle.jgitver") version jgitver

@@ -37,6 +37,7 @@ public class DataTemplateJdbc<T> implements DataTemplate<T> {
 
     @Override
     public void update(Connection connection, T client) {
+
         throw new UnsupportedOperationException();
     }
 }
